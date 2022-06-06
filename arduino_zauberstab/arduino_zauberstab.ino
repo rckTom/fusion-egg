@@ -7,11 +7,11 @@
 #define NUM_LEDS 240
 
 
-#define SAMPLING_FREQUENCY_BP 40
-#define SAMPLING_FREQUENCY_CONTROL 1
-#define Q 20.
+#define SAMPLING_FREQUENCY_BP 40       // number of energy chunks per second
+#define SAMPLING_FREQUENCY_CONTROL 1   // check number of times per second if the current band pass is the best one
+#define Q 20.   // quality factor of band pass filters
 #define PI 3.1415926535897932384626433832795
-#define n_BP 20
+#define n_BP 20  //number of band pass filters
 
 
 CRGB leds[NUM_LEDS];
@@ -65,7 +65,7 @@ int rounds = 0;
 
 void setup() {
 
-  Serial.begin(115200);
+  //Serial.begin(115200);
   
   FastLED.addLeds<WS2812, LED_PIN, RGB>(leds, NUM_LEDS);
   FastLED.setMaxPowerInVoltsAndMilliamps(5, 350);
@@ -131,7 +131,7 @@ void loop() {
    {
        last_us_bp += sampling_period_bp;
        energy_fil += (energy - energy_fil) * 0.01;
-      Serial.println(energy);
+      //Serial.println(energy);
         for(int i = 0; i < n_BP; i++)
         {
            y[i] = (b0[i]/a0[i])*energy + 0. + (b2[i]/a0[i])*u2[i] - (a1[i]/a0[i])*yy1[i] - (a2[i]/a0[i])*yy2[i];
