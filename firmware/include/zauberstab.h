@@ -9,4 +9,4 @@
 extern CRGB leds[NUM_LEDS];
 
 int zauberstab_init();
-int32_t get_sample();
+float get_sample();
