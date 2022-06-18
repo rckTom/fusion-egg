@@ -1,4 +1,5 @@
 #include "zauberstab.h"
+#include "pt1.h"
 
 unsigned long last_sample_time;
 static int sample_counter = 0;
@@ -6,12 +7,19 @@ unsigned int top_led_pos = 0;
 float rms_avg = 0;
 float vu_filt = 0.0f;
 float vu_filt_slow = 0.0f;
+float dt;
+
+struct pt1_state vu_pt1_fast;
+struct pt1_state vu_pt1_slow;
 
 void setup()
 {
     zauberstab_init();
     Serial.begin(115200);
     FastLED.setBrightness(100);
+
+    pt1_init(&vu_pt1_slow, 1, 1.f);
+    pt1_init(&vu_pt1_fast, 1, 0.05);
 }
 
 void loop() {
@@ -26,8 +34,8 @@ void loop() {
     EVERY_N_MILLIS(10){
 
         float vu = 20 * log10f(rms_avg);
-        vu_filt = (vu-vu_filt) * 0.8 + vu_filt;
-        vu_filt_slow = (vu_filt-vu_filt_slow) * 0.01 + vu_filt_slow;
+        vu_filt = pt1_update(&vu_pt1_fast, vu, 0.01f);
+        vu_filt_slow = pt1_update(&vu_pt1_slow, vu_filt, 0.01f);
         //Serial.println(vu);
         int max_led = vu_filt;
         int top_led = vu_filt_slow;
@@ -35,7 +43,7 @@ void loop() {
         max_led = max_led > 0xFF ? 0xFF : max_led;
 
         if (top_led < max_led){
-            vu_filt_slow = vu_filt;
+            vu_pt1_slow.y_n1 = vu_filt;
             top_led = max_led;
         }
 
