@@ -4,7 +4,7 @@
 //lichterkette: PWM 2
 //mikrofon: A1
 #define LED_PIN 2
-#define NUM_LEDS 240
+#define NUM_LEDS 144
 
 
 #define SAMPLING_FREQUENCY_BP 40       // number of energy chunks per second

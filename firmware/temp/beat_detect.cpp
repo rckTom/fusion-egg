@@ -1,4 +1,5 @@
 #include "zauberstab.h"
+#include <algorithm>
 
 #define SAMPLING_FREQUENCY_BP 40     // number of energy chunks per second
 #define SAMPLING_FREQUENCY_CONTROL 1 // check number of times per second if the current band pass is the best one
@@ -33,11 +34,13 @@ static float u1[n_BP];
 static float u2[n_BP];
 static float y[n_BP];
 static float y_fil[n_BP];
+static float y_fil_avg;
+static float transience = 0;
 
 static float angle;
 static float angle2;
 
-static double energy_fil = 800.;
+//static double energy_fil = 800.;
 
 static float pos_target = NUM_LEDS / 2;
 static float pos_target_filtered = NUM_LEDS / 2;
@@ -49,15 +52,15 @@ static int active = 15;
 static int candidate = 15;
 static int rounds = 0;
 
-static int get_value(int pos, float pos0)
+static float get_value(int pos, float pos0)
 {
-    if (abs(pos0 - pos) > 20)
+    if (abs(pos0 - pos) > 5)
     {
         return 0;
     }
     else
     {
-        return (40 - abs(pos0 - pos) * 2);
+        return (40 - abs(pos0 - pos) * 8);
     }
 }
 
@@ -92,16 +95,11 @@ void loop()
 
     if (micros() - last_us_bp > sampling_period_bp)
     {
-
         Serial.println(sample);
-
         microphone_offset += (analogRead(MIC_PIN) - microphone_offset) * 0.001;
-
-        //Serial.println(microphone_offset);
-
         last_us_bp += sampling_period_bp;
-        energy_fil += (energy - energy_fil) * 0.01;
-        //Serial.println(energy);
+        //energy_fil += (energy - energy_fil) * 0.01;
+        y_fil_avg = 0;
         for (int i = 0; i < n_BP; i++)
         {
             y[i] = (b0[i] / a0[i]) * energy + 0. + (b2[i] / a0[i]) * u2[i] - (a1[i] / a0[i]) * yy1[i] - (a2[i] / a0[i]) * yy2[i];
@@ -114,7 +112,9 @@ void loop()
             yy2[i] = yy1[i];
             yy1[i] = y[i];
             y_fil[i] += (abs(y[i]) - y_fil[i]) * 0.005; //linie der scheitelpunkte
+            y_fil_avg += y_fil[i];
         }
+        y_fil_avg /= n_BP;
 
         float delays = constrain(SAMPLING_FREQUENCY_BP * 0.25 / (1.75 + active * (2.4 - 1.75) / n_BP), 4., 6.);
 
@@ -150,20 +150,20 @@ void loop()
             pos_target_filtered = pos_target;
         }
 
-        //       Serial.print(y_fil[active]);
-        //       Serial.print(",");
-        //       Serial.println(y[active]);
-
         energy = 0;
+
+        transience += ((y_fil[active]/y_fil_avg-1.6) - transience)*0.02;
+        transience = max(transience, 0.0f);
+        transience = min(transience, 1.0f);
 
         for (int i = 0; i < NUM_LEDS; i++)
         {
-            int brightness = get_value(i, pos_target_filtered);
-            if (brightness >= 1) {
-                brightness = 10;
-            }
-            //leds[i].setRGB(brightness, brightness, brightness);
-            leds[i].setHSV(160, (rounds == 6) ? 0xFF : 0, brightness);
+            leds[i].g = int(get_value(i, pos_target_filtered)*transience);
+            leds[i].r = int(get_value(i, pos_target_filtered+2)*transience);
+            leds[i].b = int(get_value(i, pos_target_filtered-2)*transience);
+
+            //leds[i].setRGB(brightness_red, brightness_green, brightness_blue);
+            //leds[i].setHSV(160, (rounds == 6) ? 0xFF : 0, brightness);
         }
         FastLED.show();
     }
@@ -193,7 +193,7 @@ void loop()
                 rounds = 0;
                 candidate = argmax;
             }
-            if (rounds > 6)
+            if (rounds > 3)
             {
                 rounds = 0;
                 active = candidate;
