@@ -10,12 +10,14 @@ static uint16_t read_mic() {
 }
 
 int zauberstab_init() {
-    FastLED.addLeds<WS2812, LED_PIN, RGB>(leds, NUM_LEDS);
+    FastLED.addLeds<WS2812, LED_PIN, GRB>(leds, NUM_LEDS);
+    //FastLED.setMaxPowerInVoltsAndMilliamps(5, 300);
     dc_cancelation_init(&dc_blocker, 0.95);
     return 0;
 }
 
 float get_sample() {
-    int32_t raw_sample = read_mic();
-    return dc_cancelation_update(&dc_blocker, (float) raw_sample);
+    float sample = read_mic();
+    sample = dc_cancelation_update(&dc_blocker, sample);
+    return sample;
 }
