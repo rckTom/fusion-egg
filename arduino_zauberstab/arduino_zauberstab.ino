@@ -65,7 +65,7 @@ int rounds = 0;
 
 void setup() {
 
-  Serial.begin(115200);
+  Serial.begin(250000);
   
   FastLED.addLeds<WS2812, LED_PIN, RGB>(leds, NUM_LEDS);
   FastLED.setMaxPowerInVoltsAndMilliamps(5, 300);
