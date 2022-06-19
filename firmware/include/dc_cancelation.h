@@ -1,11 +1,18 @@
 #pragma once
 
-struct dc_cancelation_state {
-    float x_n1;
-    float y_n1;
-    float R; 
-};
+template<class T>
+struct DcCancelation {
+    T x_n1;
+    T y_n1;
+    T R;
 
-void dc_cancelation_init(struct dc_cancelation_state *state, float R);
-void dc_cancelation_set_R(struct dc_cancelation_state *state, float R);
-float dc_cancelation_update(struct dc_cancelation_state *state, float x);
+    DcCancelation(T R) : R(R) {};
+
+    T update(T x) {
+        T y = x-this->x_n1 + this->R * this->y_n1;
+        this->x_n1 = x;
+        this->y_n1 = y;
+
+        return y;
+    };
+};
