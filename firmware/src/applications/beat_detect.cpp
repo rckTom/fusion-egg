@@ -1,5 +1,6 @@
 #include <algorithm>
 
+#include "app.h"
 #include "biquad.h"
 #include "pt1.h"
 #include "zauberstab.h"
@@ -80,15 +81,18 @@ set_filter()
     }
 }
 
-void setup()
+void BeatDetectApp::init()
 {
-    zauberstab_init();
-    Serial.begin(250000);
     set_filter();
     initial_time = micros();
 }
 
-void loop()
+void BeatDetectApp::deinit()
+{
+
+}
+
+void BeatDetectApp::loop()
 {
     float sample = get_sample();
     energy += std::abs(sample) * std::abs(sample);

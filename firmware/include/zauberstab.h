@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Arduino.h"
 #include <FastLED.h>
 
 #define LED_PIN 12

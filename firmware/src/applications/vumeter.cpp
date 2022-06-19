@@ -1,3 +1,4 @@
+#include "app.h"
 #include "pt1.h"
 #include "zauberstab.h"
 
@@ -9,17 +10,19 @@ float vu_filt = 0.0f;
 float vu_filt_slow = 0.0f;
 float dt;
 
-Pt1<float> vu_pt1_fast{1.f, 1.f};
-Pt1<float> vu_pt1_slow{1.f, 0.05f};
+Pt1<float> vu_pt1_fast{1.f, 0.05f};
+Pt1<float> vu_pt1_slow{1.f, 1.f};
 
-void setup()
+void VuMeterApp::init()
 {
-    zauberstab_init();
-    Serial.begin(115200);
     FastLED.setBrightness(100);
 }
 
-void loop()
+void VuMeterApp::deinit()
+{
+}
+
+void VuMeterApp::loop()
 {
     if (micros() - last_sample_time >= 500)
     {
