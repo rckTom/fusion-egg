@@ -16,4 +16,8 @@ struct Pt1
         this->y_n1 = y;
         return y;
     }
+
+    void reset() {
+        this->y_n1 = 0.f;
+    }
 };

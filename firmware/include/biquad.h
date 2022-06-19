@@ -36,4 +36,11 @@ struct Biquad
 
         return y;
     }
+
+    void reset() {
+        this->xn1 = 0.0;
+        this->xn2 = 0.0;
+        this->yn1 = 0.0;
+        this->yn1 = 0.0;
+    }
 };

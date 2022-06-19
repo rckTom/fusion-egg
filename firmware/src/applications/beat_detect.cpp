@@ -16,9 +16,9 @@
 #define PI 3.1415926535897932384626433832795
 #define n_BP 30 // number of band pass filters
 
-static unsigned long sampling_period_bp = 1000000L / SAMPLING_FREQUENCY_BP;
-static unsigned long sampling_period_control = 1000000L / SAMPLING_FREQUENCY_CONTROL;
-static double energy = 0;
+static const unsigned long sampling_period_bp = 1000000L / SAMPLING_FREQUENCY_BP;
+static const unsigned long sampling_period_control = 1000000L / SAMPLING_FREQUENCY_CONTROL;
+static float energy = 0;
 static unsigned long last_us_bp = 0L;
 static unsigned long last_us_control = 0L;
 
@@ -85,6 +85,18 @@ void BeatDetectApp::init()
 {
     set_filter();
     initial_time = micros();
+    pos_target = NUM_LEDS / 2;
+    pos_target_filtered = NUM_LEDS / 2;
+    active = 15;
+    candidate = 15;
+    rounds = 0;
+    n_samples = 0;
+
+    pos_filter.reset();
+
+    for (int i = 0; i<n_BP; i++){
+        bp_filters[i].reset();
+    }
 }
 
 void BeatDetectApp::deinit()
@@ -101,7 +113,7 @@ void BeatDetectApp::loop()
     if (micros() - last_us_bp > sampling_period_bp)
     {
         n_samples = 0;
-        last_us_bp += sampling_period_bp;
+        last_us_bp = micros();
         // energy_fil += (energy - energy_fil) * 0.01;
 
         for (int i = 0; i < n_BP; i++)
@@ -171,7 +183,7 @@ void BeatDetectApp::loop()
 
     if (micros() - last_us_control > sampling_period_control)
     {
-        last_us_control += sampling_period_control;
+        last_us_control = micros();
         int argmax = -1;
         float valuemax = 0;
         for (int i = 0; i < n_BP; i++)
