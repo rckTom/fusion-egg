@@ -23,3 +23,9 @@ struct FFTTestApp: public App {
     void deinit();
     void loop();
 };
+
+struct FackelApp: public App {
+    void init();
+    void deinit();
+    void loop();
+};
