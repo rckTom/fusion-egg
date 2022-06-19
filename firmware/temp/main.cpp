@@ -1,9 +1,10 @@
 #include "zauberstab.h"
 
-void setup() {
+void setup()
+{
   zauberstab_init();
 }
 
-void loop() {
-
+void loop()
+{
 }

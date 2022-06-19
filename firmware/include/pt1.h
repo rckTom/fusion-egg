@@ -1,13 +1,14 @@
 #pragma once
 
-template<class T>
-struct Pt1 {
+template <class T>
+struct Pt1
+{
     T y_n1;
     T K;
     T T1;
 
     /* PT1: y = y_(n-1) + (Ku - y_(n-1)) * dt/T1 */
-    Pt1(T K, T T1) : T1(T1), K(K) {};
+    Pt1(T K, T T1) : T1(T1), K(K){};
 
     T update(T u, T dt)
     {
