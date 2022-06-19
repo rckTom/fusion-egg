@@ -1,6 +1,7 @@
 #include "zauberstab.h"
 #include <algorithm>
 #include "biquad.h"
+#include "pt1.h"
 
 #undef NUM_LEDS
 #define NUM_LEDS 45
@@ -18,6 +19,8 @@ static unsigned long last_us_bp = 0L;
 static unsigned long last_us_control = 0L;
 
 static Biquad<float> bp_filters[n_BP];
+static Pt1<float> y_filter{1.f, 1.f};
+static Pt1<float> pos_filter{1.f, 1.f};
 
 static float yy1[n_BP];
 static float yy2[n_BP];
@@ -40,7 +43,6 @@ static long initial_time;
 static int active = 15;
 static int candidate = 15;
 static int rounds = 0;
-
 static int n_samples = 0;
 
 static int get_value(int pos, float pos0)
@@ -102,7 +104,8 @@ void loop()
             yy3[i] = yy2[i];
             yy2[i] = yy1[i];
             yy1[i] = y[i];
-            y_fil[i] += (abs(y[i]) - y_fil[i]) * 0.005; //linie der scheitelpunkte
+            y_fil[i] = y_filter.update(std::abs(y[i]), 0.005f); //linie der scheitelpunkte
+            //y_fil[i] += (abs(y[i]) - y_fil[i]) * 0.005; //linie der scheitelpunkte
 
         }
 
@@ -133,10 +136,10 @@ void loop()
 
         if (pos_target > pos_target_filtered)
         {
-            pos_target_filtered += (pos_target - pos_target_filtered) * 0.35;
-        }
+            pos_target_filtered = pos_filter.update(pos_target, 0.35f);        }
         else
         {
+            pos_filter.y_n1 = pos_target;
             pos_target_filtered = pos_target;
         }
 
