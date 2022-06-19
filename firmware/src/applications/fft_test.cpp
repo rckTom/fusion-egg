@@ -4,13 +4,13 @@
 
 #define N_SAMPLES 256
 
-std::complex<float> samples[N_SAMPLES];
-std::complex<float> z[N_SAMPLES];
-double vReal[N_SAMPLES];
-double vImag[N_SAMPLES];
-uint32_t sample_counter = 0;
-unsigned long max_dt = 0;
-unsigned long last_sample = 0;
+static std::complex<float> samples[N_SAMPLES];
+static std::complex<float> z[N_SAMPLES];
+static double vReal[N_SAMPLES];
+static double vImag[N_SAMPLES];
+static uint32_t sample_counter = 0;
+static unsigned long max_dt = 0;
+static unsigned long last_sample = 0;
 
 void FFTTestApp::init()
 {
@@ -37,7 +37,7 @@ void FFTTestApp::loop()
         if (sample_counter == N_SAMPLES)
         {
             unsigned long start = micros();
-            fft(samples, z, N_SAMPLES);
+            FFT<float>::fft(samples, z, N_SAMPLES);
             unsigned long end = micros();
 
             float max = 0.f;
