@@ -1,5 +1,6 @@
 #include "zauberstab.h"
 #include <algorithm>
+#include "biquad.h"
 
 #undef NUM_LEDS
 #define NUM_LEDS 45
@@ -16,15 +17,7 @@ static double energy = 0;
 static unsigned long last_us_bp = 0L;
 static unsigned long last_us_control = 0L;
 
-static float a0[n_BP];
-static float a1[n_BP];
-static float a2[n_BP];
-static float b0[n_BP];
-//static float b1[n_BP];
-static float b2[n_BP];
-
-static float a[n_BP];
-static float w0[n_BP];
+static Biquad<float> bp_filters[n_BP];
 
 static float yy1[n_BP];
 static float yy2[n_BP];
@@ -32,9 +25,6 @@ static float yy3[n_BP];
 static float yy4[n_BP];
 static float yy5[n_BP];
 static float yy6[n_BP];
-
-static float u1[n_BP];
-static float u2[n_BP];
 static float y[n_BP];
 static float y_fil[n_BP];
 
@@ -72,14 +62,16 @@ static void set_filter()
     for (int i = 0; i < n_BP; i++)
     {
         float frequency = 1.75 + i * (2.4 - 1.75) / n_BP;
-        w0[i] = 2. * PI * frequency / SAMPLING_FREQUENCY_BP;
-        a[i] = sin(w0[i] / (2. * Q));
-        b0[i] = a[i];
-        //b1[i] = 0;
-        b2[i] = -a[i];
-        a0[i] = 1. + a[i];
-        a1[i] = -2. * cos(w0[i]);
-        a2[i] = 1. - a[i];
+        float a, a0, a1, a2, b0, b1, b2, w0;
+        w0 = 2. * PI * frequency / SAMPLING_FREQUENCY_BP;
+        a = sin(w0 / (2. * Q));
+        b0 = a;
+        b1 = 0.f;
+        b2 = -a;
+        a0 = 1.f + a;
+        a1 = -2.f * cos(w0);
+        a2 = 1.f - a;
+        bp_filters[i] = Biquad<float>{a0, a1, a2, b0, b1, b2};
     }
 }
 
@@ -109,9 +101,7 @@ void loop()
 
         for (int i = 0; i < n_BP; i++)
         {
-            y[i] = (b0[i] / a0[i]) * energy + 0. + (b2[i] / a0[i]) * u2[i] - (a1[i] / a0[i]) * yy1[i] - (a2[i] / a0[i]) * yy2[i];
-            u2[i] = u1[i];
-            u1[i] = energy;
+            y[i] = bp_filters[i].update(energy);
             yy6[i] = yy5[i];
             yy5[i] = yy4[i];
             yy4[i] = yy3[i];
