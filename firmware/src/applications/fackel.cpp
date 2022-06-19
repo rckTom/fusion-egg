@@ -2,6 +2,7 @@
 #include "pt1.h"
 #include "zauberstab.h"
 #include <cstdlib>
+#include <string>
 
 static unsigned long last_sample_time;
 static unsigned long sample_counter;
@@ -9,8 +10,10 @@ static float rms_avg;
 
 static uint8_t energy[NUM_LEDS];
 static uint8_t spark_energy[NUM_LEDS];
+char string[128];
 
-Pt1<float> energy_pt1{1.f, 1.f};
+Pt1<float> energy_pt1{1.f, 3.f};
+Pt1<float> rms_pet1{1.f, 0.05f};
 CRGB palette[128];
 
 static void hsl_to_rgb(uint32_t hue, uint32_t sat, uint32_t lum, uint8_t *r, uint8_t *g, uint8_t *b)
@@ -115,17 +118,20 @@ void FackelApp::loop()
 
     EVERY_N_MILLISECONDS(10)
     {
+        float rms = rms_pet1.update(rms_avg, 0.01f);
         float e_f = energy_pt1.update(rms_avg, 0.01f);
+        sprintf(string, "/*%f,%f*/", 1.3 * e_f, rms);
+        Serial.println(string);
 
-        if (rms_avg > 1.15 * e_f)
+        if (rms > 1.15 * e_f)
         {
             energy[0] = 128;
             energy[1] = 128;
         }
         else
         {
-            energy[0] = 50;
-            energy[1] = 50;
+            energy[0] = 0;
+            energy[1] = 10;
         }
 
         rms_avg = 0.0f;
