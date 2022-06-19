@@ -9,17 +9,14 @@ float vu_filt = 0.0f;
 float vu_filt_slow = 0.0f;
 float dt;
 
-struct pt1_state vu_pt1_fast;
-struct pt1_state vu_pt1_slow;
+Pt1<float> vu_pt1_fast{1.f, 1.f};
+Pt1<float> vu_pt1_slow{1.f, 0.05f};
 
 void setup()
 {
     zauberstab_init();
     Serial.begin(115200);
     FastLED.setBrightness(100);
-
-    pt1_init(&vu_pt1_slow, 1, 1.f);
-    pt1_init(&vu_pt1_fast, 1, 0.05);
 }
 
 void loop() {
@@ -34,8 +31,8 @@ void loop() {
     EVERY_N_MILLIS(10){
 
         float vu = 20 * log10f(rms_avg);
-        vu_filt = pt1_update(&vu_pt1_fast, vu, 0.01f);
-        vu_filt_slow = pt1_update(&vu_pt1_slow, vu_filt, 0.01f);
+        vu_filt = vu_pt1_fast.update(vu, 0.01f);
+        vu_filt_slow = vu_pt1_slow.update(vu_filt, 0.01f);
         //Serial.println(vu);
         int max_led = vu_filt;
         int top_led = vu_filt_slow;
