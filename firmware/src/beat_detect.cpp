@@ -35,8 +35,6 @@ static float angle2;
 
 static float pos_target = NUM_LEDS / 2;
 static float pos_target_filtered = NUM_LEDS / 2;
-
-static float microphone_offset = 1900;
 static long initial_time;
 
 static int active = 15;
@@ -85,17 +83,13 @@ void setup()
 }
 void loop()
 {
-
-    int sample = int(analogRead(MIC_PIN) - microphone_offset);
-    energy += abs(sample) * abs(sample);
+    float sample = get_sample();
+    energy += std::abs(sample) * std::abs(sample);
     n_samples++;
 
     if (micros() - last_us_bp > sampling_period_bp)
     {
-        Serial.println(n_samples);
         n_samples = 0;
-
-        microphone_offset += (analogRead(MIC_PIN) - microphone_offset) * 0.001;
         last_us_bp += sampling_period_bp;
         //energy_fil += (energy - energy_fil) * 0.01;
 
