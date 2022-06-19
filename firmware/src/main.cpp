@@ -30,6 +30,7 @@ void loop()
         apps[current_app].get().deinit();
         apps[next_app].get().init();
         current_app = next_app;
+        fadeToBlackBy(leds, NUM_LEDS, 0xFF);
     }
 
     apps[current_app].get().loop();
