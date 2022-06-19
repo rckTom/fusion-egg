@@ -6,8 +6,6 @@
 
 static std::complex<float> samples[N_SAMPLES];
 static std::complex<float> z[N_SAMPLES];
-static double vReal[N_SAMPLES];
-static double vImag[N_SAMPLES];
 static uint32_t sample_counter = 0;
 static unsigned long max_dt = 0;
 static unsigned long last_sample = 0;
