@@ -15,14 +15,18 @@ struct FFTTestApp fft_test_app
 struct FackelApp fackel_app
 {
 };
+struct FftDetectApp fft_detect_app
+{
+};
 
 std::vector<std::reference_wrapper<App>> apps = {
     std::ref<App>(beat_detect_app),
     std::ref<App>(vu_meter_app),
     std::ref<App>(fft_test_app),
-    std::ref<App>(fackel_app)};
+    std::ref<App>(fackel_app),
+    std::ref<App>(fft_detect_app)};
 
-unsigned int current_app = 3;
+unsigned int current_app = 4;
 unsigned int next_app;
 
 void setup()
