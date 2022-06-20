@@ -107,11 +107,14 @@ void BeatDetectApp::deinit()
 void BeatDetectApp::loop()
 {
     float sample = get_sample();
+    
     energy += std::abs(sample) * std::abs(sample);
     n_samples++;
 
     if (micros() - last_us_bp > sampling_period_bp)
     {
+
+        
         n_samples = 0;
         last_us_bp = micros();
         // energy_fil += (energy - energy_fil) * 0.01;
@@ -131,6 +134,7 @@ void BeatDetectApp::loop()
                                                 // scheitelpunkte
         }
 
+
         float delays = constrain(SAMPLING_FREQUENCY_BP * 0.25 / (1.75 + active * (2.4 - 1.75) / n_BP),
                                  4., 6.);
 
@@ -146,6 +150,8 @@ void BeatDetectApp::loop()
 
         angle = atan2(delayed, y[active]);
 
+
+
         if (PI < abs(angle - angle2) && abs(angle - angle2) < 3 * PI)
         {
             angle2 = angle + 2 * PI;
@@ -156,6 +162,9 @@ void BeatDetectApp::loop()
         }
 
         pos_target = map(angle2, -PI, 3 * PI, -0.3 * NUM_LEDS, NUM_LEDS * 1.5);
+        //pos_target = NUM_LEDS * (sin(angle2)+1)/2;
+
+
 
         if (pos_target > pos_target_filtered)
         {
@@ -166,6 +175,7 @@ void BeatDetectApp::loop()
             pos_filter.y_n1 = pos_target;
             pos_target_filtered = pos_target;
         }
+
 
         energy = 0;
 

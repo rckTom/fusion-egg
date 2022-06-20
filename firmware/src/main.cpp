@@ -26,7 +26,7 @@ std::vector<std::reference_wrapper<App>> apps = {
     std::ref<App>(fackel_app),
     std::ref<App>(fft_detect_app)};
 
-unsigned int current_app = 4;
+unsigned int current_app = 0;
 unsigned int next_app;
 
 void setup()

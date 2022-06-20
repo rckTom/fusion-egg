@@ -107,6 +107,8 @@ void FftDetectApp::loop()
         yy2 = yy1;
         yy1 = y;
         y_fil = y_filter.update(std::abs(y), 0.005f); 
+
+
         
 
         float delayed = yy5;
@@ -154,6 +156,20 @@ void FftDetectApp::loop()
     if (sample_counter == N_SAMPLES)
         {
 
+
+            float samplesum = 0.f;
+            for (int i = 0; i < N_SAMPLES;i++)
+            {
+                samplesum = samplesum + std::abs(samples[i]);
+            }
+
+            float sampleavg = samplesum/N_SAMPLES;
+
+            for (int i = 0; i < N_SAMPLES;i++)
+            {
+                samples[i] =  samples[i]  - sampleavg;
+            }
+
             FFT<float>::fft(samples, z, N_SAMPLES);
             
             float max = 0.f;
@@ -161,21 +177,19 @@ void FftDetectApp::loop()
             for (int i = 20; i < 30; i++)
             {
                 float v = std::abs(z[i]);
+
                 if (v > max)
                 {
                     max = v;
                     pos = i;
                 }
-            }
 
+                Serial.println(v);
+            }
 
             float frequency = 40.f/512.f*pos;
             set_filter(frequency);
             sample_counter = 0;
-
         }
-    
-
-
     
 }
