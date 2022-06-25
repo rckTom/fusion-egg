@@ -58,7 +58,7 @@ get_value(int pos, float pos0)
     }
     else
     {
-        return (40 - abs(pos0 - pos) * 8);
+        return (30 - abs(pos0 - pos) * 6);
     }
 }
 
@@ -67,7 +67,7 @@ set_filter()
 {
     for (int i = 0; i < n_BP; i++)
     {
-        float frequency = 1.75 + i * (2.4 - 1.75) / n_BP;
+        float frequency = 1.75 + i * (2.5 - 1.75) / n_BP;
         float a, a0, a1, a2, b0, b1, b2, w0;
         w0 = 2. * PI * frequency / SAMPLING_FREQUENCY_BP;
         a = sin(w0 / (2. * Q));
@@ -135,7 +135,7 @@ void BeatDetectApp::loop()
         }
 
 
-        float delays = constrain(SAMPLING_FREQUENCY_BP * 0.25 / (1.75 + active * (2.4 - 1.75) / n_BP),
+        float delays = constrain(SAMPLING_FREQUENCY_BP * 0.25 / (1.75 + active * (2.5 - 1.75) / n_BP),
                                  4., 6.);
 
         float delayed = 0;

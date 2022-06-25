@@ -12,12 +12,6 @@ struct BeatDetectApp : public App {
     void loop();
 };
 
-struct FftDetectApp : public App {
-    void init();
-    void deinit();
-    void loop();
-};
-
 
 struct VuMeterApp: public App {
     void init();

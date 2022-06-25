@@ -4,6 +4,9 @@
 #include <cstdlib>
 #include <string>
 
+#undef NUM_LEDS
+#define NUM_LEDS 45
+
 static unsigned long last_sample_time;
 static unsigned long sample_counter;
 static float rms_avg;
@@ -75,11 +78,11 @@ static void hsl_to_rgb(uint32_t hue, uint32_t sat, uint32_t lum, uint8_t *r, uin
     }
 }
 
-static void update_engery(uint8_t *energy, size_t s)
+static void update_energy(uint8_t *energy, size_t s)
 {
     for (int i = s; i >= 2; i--)
     {
-        energy[i] = (uint8_t)((float)(energy[i - 1] + energy[i - 2]) * 0.485f);
+        energy[i] = (uint8_t)((float)(energy[i - 1] + energy[i - 2]) * 0.45f);
     }
 }
 
@@ -120,8 +123,12 @@ void FackelApp::loop()
     {
         float rms = rms_pet1.update(rms_avg, 0.01f);
         float e_f = energy_pt1.update(rms_avg, 0.01f);
-        sprintf(string, "/*%f,%f*/", 1.3 * e_f, rms);
-        Serial.println(string);
+        //sprintf(string, "/*%f,%f*/", 1.3 * e_f, rms);
+        //Serial.println(string);
+
+        Serial.print(rms_avg);
+        Serial.print(",");
+        Serial.println(e_f);
 
         if (rms > 1.15 * e_f)
         {
@@ -140,13 +147,16 @@ void FackelApp::loop()
 
     EVERY_N_MILLISECONDS(45)
     {
-        update_engery(energy, NUM_LEDS);
+        update_energy(energy, NUM_LEDS);
 
         for (int i = 0; i < NUM_LEDS; i++)
         {
-            leds[i] = palette[energy[i]];
+            leds[NUM_LEDS-i-1] = palette[energy[i]];
+            
         }
 
+        leds[NUM_LEDS-1] = leds[NUM_LEDS-3];
+        leds[NUM_LEDS-2] = leds[NUM_LEDS-3];
         FastLED.show();
     }
 }
