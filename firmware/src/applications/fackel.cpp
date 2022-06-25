@@ -5,14 +5,14 @@
 #include <string>
 
 #undef NUM_LEDS
-#define NUM_LEDS 45
+#define NUM_LEDS 48
 
 static unsigned long last_sample_time;
 static unsigned long sample_counter;
 static float rms_avg;
 
-static uint8_t energy[NUM_LEDS];
-static uint8_t spark_energy[NUM_LEDS];
+static uint8_t energy[NUM_LEDS + 2];
+static uint8_t spark_energy[NUM_LEDS + 2];
 char string[128];
 
 Pt1<float> energy_pt1{1.f, 3.f};
@@ -147,16 +147,13 @@ void FackelApp::loop()
 
     EVERY_N_MILLISECONDS(45)
     {
-        update_energy(energy, NUM_LEDS);
+        update_energy(energy, NUM_LEDS+2);
 
         for (int i = 0; i < NUM_LEDS; i++)
         {
-            leds[NUM_LEDS-i-1] = palette[energy[i]];
+            leds[NUM_LEDS-i-1] = palette[energy[i+2]];
             
         }
-
-        leds[NUM_LEDS-1] = leds[NUM_LEDS-3];
-        leds[NUM_LEDS-2] = leds[NUM_LEDS-3];
         FastLED.show();
     }
 }
