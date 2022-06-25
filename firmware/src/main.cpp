@@ -22,14 +22,14 @@ std::vector<std::reference_wrapper<App>> apps = {
     std::ref<App>(fackel_app)
     };
 
-unsigned int current_app = 0;
+unsigned int current_app = 1;
 unsigned int next_app;
 
 void setup()
 {
     next_app = current_app;
     zauberstab_init();
-    Serial.begin(115200);
+    //Serial.begin(115200);
 
     apps[current_app].get().init();
 }
