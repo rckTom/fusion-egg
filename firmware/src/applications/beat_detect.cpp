@@ -12,9 +12,9 @@
 #define SAMPLING_FREQUENCY_CONTROL \
     1         // check number of times per second if the current band pass is the best
               // one
-#define Q 20. // quality factor of band pass filters
+#define Q 30. // quality factor of band pass filters
 #define PI 3.1415926535897932384626433832795
-#define n_BP 30 // number of band pass filters
+#define n_BP 40 // number of band pass filters
 
 static const unsigned long sampling_period_bp = 1000000L / SAMPLING_FREQUENCY_BP;
 static const unsigned long sampling_period_control = 1000000L / SAMPLING_FREQUENCY_CONTROL;
@@ -23,7 +23,7 @@ static unsigned long last_us_bp = 0L;
 static unsigned long last_us_control = 0L;
 
 static Biquad<float> bp_filters[n_BP];
-static Pt1<float> y_filter{1.f, 1.f};
+static Pt1<float> y_filter[n_BP];
 static Pt1<float> pos_filter{1.f, 1.f};
 
 static float yy1[n_BP];
@@ -78,6 +78,7 @@ set_filter()
         a1 = -2.f * cos(w0);
         a2 = 1.f - a;
         bp_filters[i] = Biquad<float>{a0, a1, a2, b0, b1, b2};
+        y_filter[i] = Pt1<float>{1.f, 1.f};
     }
 }
 
@@ -128,10 +129,13 @@ void BeatDetectApp::loop()
             yy3[i] = yy2[i];
             yy2[i] = yy1[i];
             yy1[i] = y[i];
-            y_fil[i] = y_filter.update(std::abs(y[i]),
+            y_fil[i] = y_filter[i].update(std::abs(y[i]),
                                        0.005f); // linie der scheitelpunkte
                                                 // y_fil[i] += (abs(y[i]) - y_fil[i]) * 0.005; //linie der
                                                 // scheitelpunkte
+        
+        
+
         }
 
 
@@ -150,7 +154,7 @@ void BeatDetectApp::loop()
 
         angle = atan2(delayed, y[active]);
 
-
+        
 
         if (PI < abs(angle - angle2) && abs(angle - angle2) < 3 * PI)
         {
@@ -181,12 +185,14 @@ void BeatDetectApp::loop()
 
         for (int i = 0; i < NUM_LEDS; i++)
         {
-            leds[i].g = get_value(i, pos_target_filtered);
-            leds[i].r = get_value(i, pos_target_filtered + 2);
+            //leds[i].g = get_value(i, pos_target_filtered);
+            //leds[i].r = get_value(i, pos_target_filtered + 2);
+            //leds[i].b = get_value(i, pos_target_filtered - 2);
+
+            leds[i].g = get_value(i, pos_target_filtered + 2);
+            leds[i].r = 0;//get_value(i, pos_target_filtered + 2);
             leds[i].b = get_value(i, pos_target_filtered - 2);
 
-            // leds[i].setRGB(brightness_red, brightness_green, brightness_blue);
-            // leds[i].setHSV(160, (rounds == 6) ? 0xFF : 0, brightness);
         }
         FastLED.show();
     }
@@ -205,22 +211,16 @@ void BeatDetectApp::loop()
             }
         }
 
-        if (argmax > -1)
+        if (argmax != active)
         {
-            if (argmax == candidate)
-            {
-                rounds++;
-            }
-            else
-            {
-                rounds = 0;
-                candidate = argmax;
-            }
-            if (rounds > 3)
-            {
-                rounds = 0;
-                active = candidate;
-            }
+            rounds ++;
         }
+
+        if (rounds > 5)
+        {
+            active = argmax;
+            rounds = 0;
+        }
+
     }
 }
