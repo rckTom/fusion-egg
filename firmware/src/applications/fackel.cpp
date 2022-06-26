@@ -95,7 +95,8 @@ void FackelApp::init()
     for (int i = 0; i < 128; i++)
     {
         uint8_t r, g, b;
-        hsl_to_rgb(i / 5, 255, i * 2 > 128 ? 128 : i * 2, &r, &g, &b);
+        //hsl_to_rgb(i / 5, 255, i * 2 > 128 ? 128 : i * 2, &r, &g, &b);
+        hsl_to_rgb(i / 5 + 180, 255, i * 2 > 128 ? 128 : i * 2, &r, &g, &b);
         g = g == 1 ? 0 : g;
         b = b == 1 ? 0 : b;
         palette[i].r = r;

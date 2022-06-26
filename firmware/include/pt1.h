@@ -9,6 +9,7 @@ struct Pt1
 
     /* PT1: y = y_(n-1) + (Ku - y_(n-1)) * dt/T1 */
     Pt1(T K, T T1) : T1(T1), K(K){};
+    Pt1() = default;
 
     T update(T u, T dt)
     {

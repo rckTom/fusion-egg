@@ -22,10 +22,6 @@ std::vector<std::reference_wrapper<App>> apps = {
     std::ref<App>(fackel_app)
     };
 
-<<<<<<< HEAD
-unsigned int current_app = 1;
-unsigned int next_app;
-=======
 static unsigned int current_app = 0;
 static unsigned int next_app;
 static bool init_successfull = false;
@@ -55,20 +51,14 @@ void switch_app() {
 
     next_app = next_app % apps.size();
 }
->>>>>>> update main app handling to include an off state
 
 void setup()
 {
     next_app = current_app;
-<<<<<<< HEAD
-    zauberstab_init();
-    //Serial.begin(115200);
-=======
     if (zauberstab_init() != 0) {
         return;
     }
     Serial.begin(115200);
->>>>>>> update main app handling to include an off state
 
     init_successfull = true;
     apps[current_app].get().init();
