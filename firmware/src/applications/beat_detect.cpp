@@ -131,6 +131,9 @@ void BeatDetectApp::loop()
                                        0.005f); // linie der scheitelpunkte
                                                 // y_fil[i] += (abs(y[i]) - y_fil[i]) * 0.005; //linie der
                                                 // scheitelpunkte
+        
+        
+
         }
 
 
@@ -149,7 +152,7 @@ void BeatDetectApp::loop()
 
         angle = atan2(delayed, y[active]);
 
-
+        
 
         if (PI < abs(angle - angle2) && abs(angle - angle2) < 3 * PI)
         {
@@ -186,10 +189,10 @@ void BeatDetectApp::loop()
 
             leds[i].g = get_value(i, pos_target_filtered);
             leds[i].r = 0; //get_value(i, pos_target_filtered + 2);
+            leds[i].g = get_value(i, pos_target_filtered + 2);
+            leds[i].r = 0;//get_value(i, pos_target_filtered + 2);
             leds[i].b = get_value(i, pos_target_filtered - 2);
 
-            // leds[i].setRGB(brightness_red, brightness_green, brightness_blue);
-            // leds[i].setHSV(160, (rounds == 6) ? 0xFF : 0, brightness);
         }
         FastLED.show();
     }
@@ -210,13 +213,13 @@ void BeatDetectApp::loop()
 
         if (argmax != active)
         {
-            rounds++;
+            rounds ++;
         }
 
         if (rounds > 5)
         {
-            rounds = 0;
             active = argmax;
+            rounds = 0;
         }
 
     }
