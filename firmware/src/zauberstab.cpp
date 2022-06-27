@@ -34,8 +34,8 @@ int zauberstab_init()
     }
 
     myAcc.setDataRate(ADXL345_DATA_RATE_200);
-    myAcc.setRange(ADXL345_RANGE_8G);
-    myAcc.setGeneralTapParameters(ADXL345_XY0, 3.0, 30, 100.0);
+    myAcc.setRange(ADXL345_RANGE_16G);
+    myAcc.setGeneralTapParameters(ADXL345_XY0, 5.0, 50, 100.0);
     myAcc.setAdditionalDoubleTapParameters(false, 250);
     myAcc.setInterrupt(ADXL345_DOUBLE_TAP, INT_PIN_1);
     attachInterrupt(digitalPinToInterrupt(4), double_tab_int, RISING);

@@ -6,6 +6,7 @@
 
 extern "C"
 {
+#define BASE_DIR "C:/Users/Binarykitchen/Documents/tom/fusion-zauberstab/firmware/"
 asm(
 ".macro inc_sample name, filename\n\t"
         ".pushsection .rodata\n\t"
@@ -23,7 +24,8 @@ asm(
 	extern const unsigned int label##_size; \
 
 
-incbin(fusion_font, "C:/Users/Binarykitchen/Documents/tom/fusion-zauberstab/firmware/src/applications/fusion_font.bin")
+
+incbin(fusion_font, BASE_DIR "assets/fairydust.bin")
 }
 
 static CRGB get_pixel(unsigned int x, unsigned int y, unsigned int sx, const unsigned char *data) {
@@ -47,9 +49,10 @@ void ImageDisplayApp::deinit() {
 
 void ImageDisplayApp::loop() {
     static unsigned int col = 0;
+    unsigned int sx = fusion_font_size/(3*48);
 
     for (int i = 0; i< NUM_LEDS; i++) {
-        leds[i] = get_pixel(col, i, 218, fusion_font);
+        leds[i] = get_pixel(col, i, sx, fusion_font);
     }
     col++;
     col = col % 218;
