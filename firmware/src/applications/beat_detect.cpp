@@ -6,7 +6,7 @@
 #include "zauberstab.h"
 
 #undef NUM_LEDS
-#define NUM_LEDS 45
+#define NUM_LEDS 48
 
 #define SAMPLING_FREQUENCY_BP 40 // number of energy chunks per second
 #define SAMPLING_FREQUENCY_CONTROL \
@@ -113,7 +113,6 @@ void BeatDetectApp::loop()
     if (micros() - last_us_bp > sampling_period_bp)
     {
 
-        
         n_samples = 0;
         last_us_bp = micros();
         // energy_fil += (energy - energy_fil) * 0.01;
@@ -132,8 +131,6 @@ void BeatDetectApp::loop()
                                                 // y_fil[i] += (abs(y[i]) - y_fil[i]) * 0.005; //linie der
                                                 // scheitelpunkte
         
-        
-
         }
 
 
@@ -183,15 +180,13 @@ void BeatDetectApp::loop()
 
         for (int i = 0; i < NUM_LEDS; i++)
         {
-            //leds[i].g = get_value(i, pos_target_filtered);
-            //leds[i].r = get_value(i, pos_target_filtered + 2);
-            //leds[i].b = get_value(i, pos_target_filtered - 2);
-
             leds[i].g = get_value(i, pos_target_filtered);
-            leds[i].r = 0; //get_value(i, pos_target_filtered + 2);
-            leds[i].g = get_value(i, pos_target_filtered + 2);
-            leds[i].r = 0;//get_value(i, pos_target_filtered + 2);
+            leds[i].r = get_value(i, pos_target_filtered + 2);
             leds[i].b = get_value(i, pos_target_filtered - 2);
+
+            //leds[i].g = get_value(i, pos_target_filtered);
+            //leds[i].g = get_value(i, pos_target_filtered + 2);
+            //leds[i].b = get_value(i, pos_target_filtered - 2);
 
         }
         FastLED.show();
