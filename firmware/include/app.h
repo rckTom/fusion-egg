@@ -30,3 +30,9 @@ struct FackelApp: public App {
     void deinit();
     void loop();
 };
+
+struct ImageDisplayApp: public App {
+    void init();
+    void deinit();
+    void loop();
+};
