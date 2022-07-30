@@ -36,7 +36,7 @@ Fusion Zauberstab
 - Apps
 
 # Bedienung
-- Doulbetap
+- Double tap
 - Verwendung von Interrupts
 - ESP32 Deep Sleep
 
@@ -52,3 +52,4 @@ Fusion Zauberstab
 
 # Praxistest
     - (Fusion Bilder)
+    - beaterkennung funktioniert je nach musik, fackel immer
