@@ -4,6 +4,7 @@ Fusion Zauberstab
 
 <!--- Artikel --->
 # Motivation
+
 # Konzept
 - (Explosionzeichung Ei)
 
@@ -44,12 +45,11 @@ Fusion Zauberstab
 > Info: Biquad
 - (Blockdiagramm)
 
-
 # Fackel
-    - Algorithmus Feuer
-    - "Seeding" mit Sound
-    - (Blockdiagramm)
+- Algorithmus Feuer
+- "Seeding" mit Sound
+- (Blockdiagramm)
 
 # Praxistest
-    - (Fusion Bilder)
-    - beaterkennung funktioniert je nach musik, fackel immer
+- (Fusion Bilder)
+- beaterkennung funktioniert je nach musik, fackel immer

@@ -15,6 +15,6 @@ Wir nutzen hier die Definition einer Vase aus. Der Slicer fährt auf jeder Lage 
 
 ![vase mode 2](grafiken/illustrationen/vase_sliced.PNG "Tatsächlich gedruckte Geometrie")
 
-An Boden und Deckel ist der Vasenmodus ungeeignet, da die Überlappung aufeinanderfolgender Lagen bei hier zunehmend klein wird. Hier drucken wir massiv. Trotz dieser Aufteilung ist das verbliebene Vasenteil recht groß, ein Drucker mit entsprechendem Bauraum ist also Voraussetzung. Bei uns kam ein Voron2 350 zum Einsatz.
+An Boden und Deckel ist der Vasenmodus ungeeignet, da die Überlappung aufeinanderfolgender Lagen bei hier zunehmend klein wird. Daher wird das Ei in drei Teile geteilt, die äußeren beiden drucken wir massiv. Trotz dieser Aufteilung ist das verbliebene Vasenteil recht groß, ein Drucker mit mindestens 250mm Bauraumhöhe ist also Voraussetzung. 
 
 
