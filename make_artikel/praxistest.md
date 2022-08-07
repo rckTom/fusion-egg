@@ -1,28 +1,47 @@
 
 # Praxistest
 
-Nach vielen Nachtschichten waren wir kurz vor der Abfahrt zum Festival soweit und hatten zwei funktionierende Eier.
-Die Sorge, dass das Vasenteil den Transport nicht übersteht, erwies sich als unbegründet, dem Einsatz stand also nichts im Wege.
+Nach vielen Nachtschichten waren wir kurz vor dem Festival endlich soweit und hatten zwei funktionierende Eier.
+Auch die mehrstündige, ungepolsterte Fahrt in Eurokisten überlebten alle Bauteile problemlos.
+Nach einem kurzen Zusammenbau und Funktionscheck kam nun der erste große Test. 
 
-Eine Warnung an dieser Stelle: Das Herumlaufen oder -stehen mit dem Totem verwandelt eine Festivalnacht zuverlässig in einen Nerdhaufen.
-Jede technikinteressierte Person in einem Umkreis von zwanzig Metern wird magnetisch angezogen und stellt Fragen.
+Zu Beginn war das Laufen mit dem Totem noch sehr ungewohnt. Das lag zum einen am hohen Schwerpunkt, zum anderen an der Aufmerksamkeit,
+die wir unweigerlich auf uns zogen. 
+
+![fusion 1](grafiken/fusion_bilder/5.jpg "Totem auf dem Festivalgelände")
+
+Eine Warnung an dieser Stelle: Das Totem verwandelt eine Festivalnacht zuverlässig in eine Nerdveranstaltung.
+Viele interessierte Menschen kamen auf uns zu und stellten Fragen. 
+*Ist das Ding selbst gemacht? Was für einen Mikrocontroller habt ihr dafür genommen? Wo im Netz gibt es die Anleitung dafür? Kannst du meinem Kumpel nochmal das mit dem double-tap zeigen?*
 Besonderen Spaß gemacht hat uns der Austausch mit den makern anderer Totems. So verschieden die Basteleien aussahen, so ähnlich
-waren doch die zugrundeliegenden Lösungen. Auch ein Sommertrend war klar erkennbar:
+waren doch oft die zugrundeliegenden Lösungen. Auch ein Sommertrend war klar erkennbar:
 
 ![sommertrend 2022](grafiken/memes/esp32_wled_hot.jpg "WLED auf einem ESP32 - so hot right now")
 
-Am ersten Festivalabend hatten wir zum Debugging noch ein vu-Meter auf dem Ei implementiert um die Aussteuerung zu messen. 
+Am ersten Abend hatten wir zum debugging noch ein vu-Meter auf einem der Eier implementiert um die Aussteuerung zu messen. 
 Daraus folgte die wenig überraschende Erkenntnis, dass die Mikrofone wenige Meter vor der Bühne völlig übersteuern. 
-Zum Glück funktionierten die audioreaktiven Animationen dennoch problemlos. 
+Zum Glück funktionierten die audioreaktiven Animationen trotzdem. 
+
+Die Beaterkennung konnte vor allem bei Musik mit gleichmäßigem Rythmus überzeugen, während die Fackelanimation 
+vor allem bei bass drops das Umfeld zum Staunen brachte. Der heimliche Star des Abends war jedoch die double-tap-Funktion. 
+
+![fusion 2](grafiken/fusion_bilder/3.jfif "Totem im Einsatz")
+
+Vor dem zweiten Abend stellten wir zur Sicherheit noch die Empfindlichkeit der Mikrofone auf den kleinstmöglichen Wert.
+Bei der Gelegenheit verringerten wir außerdem die Helligkeit der Animationen.
+Weitere Änderungen waren während des Festivals nicht mehr nötig.
+
+Beim Auseinanderbauen stellten wir mit Freude fest, dass die Akkupacks nach einer langen Nacht nicht einmal
+die Hälfte ihrer Ladung verloren hatten. Grob geschätzt dürfte die Einsatzdauer im Betrieb bei etwa 24h liegen, 
+etwa dreimal so lang im deep sleep. 
 
 
-- Reaktionen
+Ausleitung
 
-- Funktion Beaterkennung
+![fusion 6](grafiken/fusion_bilder/6.jpg "Impressionen von der Tanzfläche")
 
-- Funktion Fackel
 
-- Akkulaufzeit
+
 
 - Probleme
     - Stab nicht ausziehbar
