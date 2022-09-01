@@ -27,24 +27,19 @@ vor allem bei bass drops das Umfeld zum Staunen brachte. Der heimliche Star des 
 
 ![fusion 2](grafiken/fusion_bilder/3.jfif "Totem im Einsatz")
 
-Vor dem zweiten Abend stellten wir zur Sicherheit noch die Empfindlichkeit der Mikrofone auf den kleinstmöglichen Wert.
+Vor dem zweiten Abend stellten wir zur Sicherheit noch die Empfindlichkeit der Mikrofone über die kleine Einstellschraube auf den kleinstmöglichen Wert.
 Bei der Gelegenheit verringerten wir außerdem die Helligkeit der Animationen.
 Weitere Änderungen waren während des Festivals nicht mehr nötig.
 
 Beim Auseinanderbauen stellten wir mit Freude fest, dass die Akkupacks nach einer langen Nacht nicht einmal
-die Hälfte ihrer Ladung verloren hatten. Grob geschätzt dürfte die Einsatzdauer im Betrieb bei etwa 24h liegen, 
-etwa dreimal so lang im deep sleep. 
+die Hälfte ihrer Ladung verloren hatten. Grob geschätzt dürfte die Einsatzdauer bei Benutzung bei etwa einem Tag liegen, 
+etwa drei im deep sleep. 
 
-
-Ausleitung
+Entsprechend war nun der Zeitpunkt gekommen, wo wir gedanklich vom Tüfelmodus vollständig auf den Festivalmodus umschwenken konnten.
+Hier eine Impression von der Tanzfläche, um das Werk in einen Kontext zu setzen:
 
 ![fusion 6](grafiken/fusion_bilder/6.jpg "Impressionen von der Tanzfläche")
 
+Wir freuen uns schon auf nächstes Jahr, dann mit Teleskopstab, sowie einer Ladelösung, die kein Aufschrauben mehr nötig macht.
 
-
-
-- Probleme
-    - Stab nicht ausziehbar
-    - Schwerpunkt
-    - Aufschrauben zum Laden
-    - Ein Tüftler ist nie fertig "Ein Projekt wird nie beendet, nur verlassen"
+Wenn ihr Lust bekommen habt, dann meldet euch bei uns! Wir sind vor allem interessiert an neuen Animationen, die wir auf das Ei laden können.
