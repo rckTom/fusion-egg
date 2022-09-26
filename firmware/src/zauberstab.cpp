@@ -1,21 +1,51 @@
 #include "zauberstab.h"
 #include "dc_cancelation.h"
 
-struct dc_cancelation_state dc_blocker;
+DcCancelation<float> dc_blocker{0.95};
 CRGB leds[NUM_LEDS];
 static int16_t mic_offset = 0;
+static bool acc_event = false;
+ADXL345_WE myAcc = ADXL345_WE(ADXL345_I2CADDR);
 
-static uint16_t read_mic() {
+static uint16_t read_mic()
+{
     return analogRead(MIC_PIN);
 }
 
-int zauberstab_init() {
-    FastLED.addLeds<WS2812, LED_PIN, RGB>(leds, NUM_LEDS);
-    dc_cancelation_init(&dc_blocker, 0.95);
+void double_tab_int() {
+    acc_event = true;
+}
+
+bool acc_has_event() {
+    return acc_event;
+}
+
+int zauberstab_init()
+{
+    FastLED.addLeds<WS2812, LED_PIN, GRB>(leds, NUM_LEDS);
+    FastLED.addLeds<WS2812, 14, GRB>(leds, NUM_LEDS);
+    FastLED.addLeds<WS2812, 27, GRB>(leds, NUM_LEDS);
+    // FastLED.setMaxPowerInVoltsAndMilliamps(5, 300);
+
+    Wire.begin();
+    if (!myAcc.init()){
+        Serial.println("Ooops, no ADXL345 detected ... Check your wiring!");
+        return -1;
+    }
+
+    myAcc.setDataRate(ADXL345_DATA_RATE_200);
+    myAcc.setRange(ADXL345_RANGE_16G);
+    myAcc.setGeneralTapParameters(ADXL345_XY0, 5.0, 50, 100.0);
+    myAcc.setAdditionalDoubleTapParameters(false, 250);
+    myAcc.setInterrupt(ADXL345_DOUBLE_TAP, INT_PIN_1);
+    attachInterrupt(digitalPinToInterrupt(4), double_tab_int, RISING);
+
     return 0;
 }
 
-float get_sample() {
-    int32_t raw_sample = read_mic();
-    return dc_cancelation_update(&dc_blocker, (float) raw_sample);
+float get_sample()
+{
+    float sample = read_mic();
+    sample = dc_blocker.update(sample);
+    return sample;
 }
