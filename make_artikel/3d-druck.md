@@ -1,7 +1,7 @@
 
 # 3D-Druck - Vase mode mal anders
 
-In einer idealen Welt würden wir das gesamte Ei einfach ganz normal drucken. Leider sagte der Slicer für unsere naive erste Konstruktion eine Druckzeit jenseits von gut und böse voraus. 
+In einer idealen Welt würden wir das gesamte Ei einfach ganz normal drucken. Leider sagte der Slicer für unsere naive erste Konstruktion eine Druckzeit fast einer Woche voraus. 
 
 Die zweite und entgültige Konstruktion nutzt zwei Tricks um das 32 Zentimeter hohe Ei in etwa einem Tag drucken zu können. 
 
@@ -15,6 +15,6 @@ Wir nutzen hier die Definition einer Vase aus. Der Slicer fährt auf jeder Lage 
 
 ![vase mode 2](grafiken/illustrationen/vase_sliced.PNG "Tatsächlich gedruckte Geometrie")
 
-An Boden und Deckel ist der Vasenmodus ungeeignet, da die Überlappung aufeinanderfolgender Lagen bei hier zunehmend klein wird. Daher wird das Ei in drei Teile geteilt, die äußeren beiden drucken wir massiv. Trotz dieser Aufteilung ist das verbliebene Vasenteil recht groß, ein Drucker mit mindestens 250mm Bauraumhöhe ist also Voraussetzung. 
+An Boden und Deckel ist der Vasenmodus ungeeignet, da die Überlappung aufeinanderfolgender Lagen bei hier zunehmend klein wird. Daher wird das Ei in drei Teile geteilt, die äußeren beiden drucken wir normal. Trotz dieser Aufteilung ist das verbliebene Vasenteil recht groß, ein Drucker mit mindestens 250mm Bauraumhöhe ist also Voraussetzung. 
 
 
