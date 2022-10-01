@@ -27,7 +27,7 @@ Fusion Zauberstab
 - Akku
 - WS2812
 
-# Platformio
+# Platformio (streichen?)
 
 # Software-Struktur
 - Verwendete Bibliotheken
@@ -36,7 +36,7 @@ Fusion Zauberstab
 - Aufbau des Projekts
 - Apps
 
-# Bedienung
+# Bedienung (teil von software?)
 - Double tap
 - Verwendung von Interrupts
 - ESP32 Deep Sleep
