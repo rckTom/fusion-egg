@@ -1,3 +1,4 @@
+
 Fusion Zauberstab
 =================
 <!--- Vorspann --->
@@ -36,7 +37,7 @@ Fusion Zauberstab
 - Aufbau des Projekts
 - Apps
 
-# Bedienung (teil von software?)
+# Bedienung (Teil von Software?)
 - Double tap
 - Verwendung von Interrupts
 - ESP32 Deep Sleep
