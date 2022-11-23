@@ -1,9 +1,9 @@
 
 # Konzept
 
-Der weiße Teil des Eis besteht aus drei vertikal gestapelten Teilen, die jeweils 3D-gedruckt sind. Das mittlere dieser Teile ist für schnellen Druck im Vasenmodus ausgeführt - mehr dazu später. 
+Die Hülle des Eis besteht aus drei vertikal gestapelten 3D-Druckteilen. Die mittlere Komponente ist für schnellen Druck im Vasenmodus ausgeführt - mehr dazu später. 
 
-Im Inneren der Vase befindet sich zur Stabilisierung ein geklebtes Skelett aus lasergeschnittenem Holz. Dieses ist formschlüssig mit der Vase verbunden und mit den anderen beiden weißen Teilen verschraubt. 
+Im Inneren der Vase befindet sich zur Stabilisierung ein geklebtes Skelett aus lasergeschnittenem Holz. Dieses ist formschlüssig mit der Vase verbunden und mit dem Boden und Deckel verschraubt. 
 
 Im Inneren des Holzskeletts ist eine Holzplatte eingespannt, welche als Träger der Elektronik fungiert. 
 
@@ -14,6 +14,8 @@ Das Gesamtkonzept ist in der folgenden Explosionsansicht illustriert:
 Das Ei sitzt verschraubt auf einem gedruckten Sockel. Dieser enthält einen kreisförmigen Schlitz, um ein handelsübliches Alurohr aus dem Baumarkt aufzunehmen. Die leichte Spielpassung in Verbindung mit den typischen Druckertoleranzen sorgt hier für einen stabilen Reibkraftschluss. 
 
 Im Inneren befindet sich ein ESP32 Mikrocontroller, ein Mikrofon, ein Beschleunigungssensor, ein 10Ah Reiseakku und drei WS2812 LED-Bänder. 
+
+(DSC07978.JPG)
 
 Auf dem ESP32 läuft ein in C++ geschriebenes Programm, welches zwischen verschiedenen Animationen umschaltet. Die Umschaltung erfolgt durch den Beschleunigungssensor - ein doppeltes Aufstampfen des Stabes auf dem Boden wird hier als Umschaltsignal interpretiert. 
 

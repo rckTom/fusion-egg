@@ -19,25 +19,12 @@ Fusion Zauberstab
 - Lasercutter (Bild Lasercutter)
 - Verschraubung Boden und Deckel (Bild einpressen Einschlagmutter)
 
-# Elektronik
-- (Übersichtszeichnung (Fritzing))
-- (Bild Elektronikschlitten)
-- ESP32
-- Mikrofon
-- Beschleunigungssensor
-- Akku
-- WS2812
-
-# Platformio (streichen?)
-
 # Software-Struktur
 - Verwendete Bibliotheken
     - FastLED
     - ADXL345 Bibliothek
 - Aufbau des Projekts
 - Apps
-
-# Bedienung (Teil von Software?)
 - Double tap
 - Verwendung von Interrupts
 - ESP32 Deep Sleep
@@ -50,6 +37,11 @@ Fusion Zauberstab
 - Algorithmus Feuer
 - "Seeding" mit Sound
 - (Blockdiagramm)
+
+# Anleitung
+- hardware
+- software
+- plattformIO
 
 # Praxistest
 - (Fusion Bilder)
