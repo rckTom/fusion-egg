@@ -1,9 +1,7 @@
 
 Fusion Zauberstab
 =================
-<!--- Vorspann --->
 
-<!--- Artikel --->
 # Motivation
 
 # Konzept

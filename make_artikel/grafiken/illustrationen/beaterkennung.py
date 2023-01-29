@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-n_plots = 8
+n_plots = 7
 endtime = 4
 size = 1000
 
@@ -12,7 +12,7 @@ audio = 1023*np.random.random(size=(size))
 audio = 512+(audio-512)*(0.2)*np.sin(np.linspace(0,endtime*2*3.14*2, size))+(audio-512)*0.3
 
 #fig, axs = plt.subplots(n_plots, 1, sharex=True)
-fig = plt.figure(figsize=(10,10))
+fig = plt.figure(figsize=(10,6))
 gs = fig.add_gridspec(n_plots, hspace=0)
 axs = gs.subplots(sharex=True)
 
@@ -26,8 +26,10 @@ axs[0].plot(time,audio)
 axs[0].set_ylabel("Mikrofon\n-signal", x=titlex, y=titley)
 
 audio_norm = audio-512
-axs[1].plot(time,audio_norm)
-axs[1].set_ylabel("Mikrofon\n-signal\nnormiert", x=titlex, y=titley)
+# axs[1].plot(time,audio_norm)
+# axs[1].set_ylabel("Mikrofon\n-signal\nnormiert", x=titlex, y=titley)
+
+offset = 1
 
 spc = size/endtime
 
@@ -36,8 +38,8 @@ spc = size/endtime
 audio_norm = np.array(audio_norm)
 audio_squared = np.square(audio_norm)
 
-axs[2].plot(time, audio_squared)
-axs[2].set_ylabel("Signal\n-energie", x=titlex, y=titley)
+axs[2-offset].plot(time, audio_squared)
+axs[2-offset].set_ylabel("Signal\n-energie\n(gefiltert)", x=titlex, y=titley)
 
 spc = int(size/endtime/40)
 
@@ -54,8 +56,8 @@ for sample, timepoint in zip(audio_squared, time):
         chunktimes.append(timepoint)
         energy = 0
 
-axs[3].plot(chunktimes, chunks)
-axs[3].set_ylabel("Signale\n-nergie\nchunks", x=titlex, y=titley)
+axs[3-offset].plot(chunktimes, chunks)
+axs[3-offset].set_ylabel("Signale\n-nergie\nchunks", x=titlex, y=titley)
 
 n_BP = 5
 SAMPLING_FREQUENCY_BP = 40
@@ -118,23 +120,23 @@ for i in range(n_BP):
 
         filter_output.append(y)
 
-    axs[4].plot(chunktimes, filter_output, color="#1f77b4" if i == 1 else "grey")
+    axs[4-offset].plot(chunktimes, filter_output, color="k" if i == 1 else "#1f77b4")
 
     if i == 1:
-        axs[5].plot(chunktimes, filter_output)
+        axs[5-offset].plot(chunktimes, filter_output)
 
     filter_outputs.append(filter_output)
 
-axs[4].set_ylabel("Band\n-pässe", x=titlex, y=titley)
+axs[4-offset].set_ylabel("Band\n-pässe", x=titlex, y=titley)
 
-axs[5].plot(chunktimes, delayed, color="grey")
-axs[5].set_ylabel("Delay", x=titlex, y=titley)
+axs[5-offset].plot(chunktimes, delayed, color="k")
+axs[5-offset].set_ylabel("Delay", x=titlex, y=titley)
 
-axs[6].plot(chunktimes, angles)
-axs[6].set_ylabel("Geschätzter\nPhasen\nwinkel", x=titlex, y=titley)
+axs[6-offset].plot(chunktimes, angles)
+axs[6-offset].set_ylabel("Geschätzter\nPhasen\nwinkel", x=titlex, y=titley)
 
-axs[7].plot(chunktimes, angles2)
-axs[7].set_ylabel("Halbierte\nFrequenz", x=titlex, y=titley)
+axs[7-offset].plot(chunktimes, angles2)
+axs[7-offset].set_ylabel("Halbierte\nFrequenz", x=titlex, y=titley)
 
 for i in range(n_plots):
     axs[i].set_yticks(())
