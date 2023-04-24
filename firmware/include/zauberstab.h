@@ -2,8 +2,8 @@
 
 #include "Arduino.h"
 #include <FastLED.h>
-#include<Wire.h>
-#include<ADXL345_WE.h>
+#include <Wire.h>
+#include <ADXL345_WE.h>
 
 #define ADXL345_I2CADDR 0x53  // 0x1D if SDO = HIGH
 
