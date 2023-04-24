@@ -1,4 +1,24 @@
 
+# Bandpass
+
+
+# Biquad 
+
+
+
+# Vasenmodus
+
+
+
+# Signalenergie
+
+
+# PT1
+
+
+
+
+
 Fusion Zauberstab
 =================
 

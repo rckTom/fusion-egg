@@ -6,11 +6,12 @@ Ein Flugzeug mit schlagenden Flügeln. Ein handgeschriebenes Schild mit der Aufs
 Ungewöhnliche Eindrücke findet man auf dem Fusion Festival genug. Unter anderem ist die deutsche Variante des Burning Man auch bekannt für sogenannte Festivaltotems: 
 Kunstwerke und Basteleien, die mit auf die Tanzfläche genommen werden, damit sich die eigene Crew auch findet. Mobilfunk sucht man nämlich meist vergeblich.
 
-Heute erzählen wir die Geschichte unseres Festivaltotems. Sie beginnt ein paar Wochen vor dem großen Einsatz mit einer zentralen Idee -
-es soll mit Licht auf Musik reagieren. Weiter geht es in unserer Erzählung mit einigen interessanten technischen Rätseln, die es zu lösen gilt. Am Ende steht ein 3D-gedrucktes Ei, gefüllt mit einem
-lasergedruckten Holzskelett, LED-Ketten und Elektronik. Es tanzt zum beat, lässt sich über Gesten steuern und verbreitet wo es hinkommt gute Laune.
+![fusion 6](grafiken/fusion_bilder/6.jpg "Festivaltotems auf der Fusion")
 
-# Konzept
+In diesem Artikel geht es um die Entwicklung unseres eigenen Festivaltotems. Sie beginnt ein paar Wochen vor dem großen Einsatz mit einer zentralen Idee - es soll mit Licht auf Musik reagieren. Am Ende steht ein 3D-gedrucktes Ei, im Inneren befinden sich ein
+lasergedrucktes Holzskelett, LED-Ketten und Elektronik. Es tanzt zum beat, lässt sich über Gesten steuern und verbreitet wo es hinkommt gute Laune.
+
+# Grundaufbau
 
 Die Hülle des Eis besteht aus drei vertikal gestapelten 3D-Druckteilen. Die mittlere Komponente ist für schnellen Druck im Vasenmodus ausgeführt - mehr dazu später. 
 
@@ -34,21 +35,29 @@ Auf dem Festival hatten wir zwei verschiedene Animationen implementiert, die wir
 
 # 3D-Druck - Vase mode mal anders
 
-In einer idealen Welt würden wir das gesamte Ei einfach ganz normal drucken. Leider sagte der Slicer für unsere naive erste Konstruktion eine Druckzeit fast einer Woche voraus. 
+In einer idealen Welt würden wir das gesamte Ei einfach ganz normal drucken. Leider sagte der Slicer für unsere naive erste Konstruktion eine Druckzeit fast einer Woche voraus.
 
 Die zweite und entgültige Konstruktion nutzt zwei Tricks um das 32 Zentimeter hohe Ei in etwa einem Tag drucken zu können. 
 
-Der erste Trick ist ein Umstieg auf eine 0.8mm breite Düse. 
+Der erste Trick ist ein Umstieg auf eine 0.8mm breite Düse. Standardmäßig sind bei den meisten Druckern 0.4mm Düsen installiert. Die breitere Düse erhöht die Druckgeschwindigkeit auf ein Vielfaches, auf Kosten der Genauigkeit. Für unser Projekt ist die Genauigkeit aber nach wie vor ausreichend.
 
 Der zweite Trick ist eine kreative Verwendung des Vasenmodus. Auf den ersten Blick scheidet eine Vase aus, da zur Befestigung der LED-stripes ein gewisses Innenleben notwendig ist. 
 
+    [Erklärbox] Beim 3D-Druck gibt es eine spezielle Druckmethode namens "Vase Mode", die es ermöglicht, hohle Objekte zu drucken. Der Vasenmodus funktioniert so, dass der Drucker nur die äußere Kontur des zu druckenden Objekts aufbaut. Dabei bewegt sich der Druckkopf in einer Spirale nach oben. Dadurch entsteht eine hohle Form, die oft einem Gefäß oder einer Vase ähnelt. Der Vorteil dieser Methode ist, dass sie sehr schnell ist, da nur die äußere Schicht des Objekts gedruckt werden muss. Außerdem spart es Material, da das Innere des Objekts leer bleibt. Das macht den Vasenmodus ideal für den Druck von dekorativen Objekten wie Vasen oder Lampenschirmen. Es gibt jedoch auch Nachteile: Da das Objekt hohl ist, kann es schwierig sein, es stabil genug zu drucken, besonders wenn es groß ist. Außerdem ist das Objekt nur von einer Seite zugänglich, was die Reinigung und Nachbearbeitung erschweren kann.
+
 Wir nutzen hier die Definition einer Vase aus. Der Slicer fährt auf jeder Lage sturr die äußere Kontur ab. "Außere Kontur" ist hier rein mathematisch definiert. Indem wir einen Volumenkörper von außen dünn einschlitzen, können wir also auch im Innenraum des Eis einen Tunnel für die LED-stripes erzeugen. Das ist in den Abbildungen (vase mode 1) und (vase mode 2) illustriert. 
 
-![vase mode 1](grafiken/illustrationen/vase_cad.PNG "Geometrie laut CAD")
+![vase mode 1](grafiken/illustrationen/vase_cad.PNG "Geometrie wie sie im CAD definiert ist")
 
-![vase mode 2](grafiken/illustrationen/vase_sliced.PNG "Tatsächlich gedruckte Geometrie")
+![vase mode 2](grafiken/illustrationen/vase_sliced.PNG "Tatsächlich gedruckte Geometrie beim Vasenmodus")
 
-An Boden und Deckel ist der Vasenmodus ungeeignet, da die Überlappung aufeinanderfolgender Lagen bei hier zunehmend klein wird. Daher wird das Ei in drei Teile geteilt, die äußeren beiden drucken wir normal. Trotz dieser Aufteilung ist das verbliebene Vasenteil recht groß, ein Drucker mit mindestens 250mm Bauraumhöhe ist also Voraussetzung. 
+Die Verwendung einer 0.8mm Düse kommt uns hier entgegen, da sie das übliche Stabilitätsproblem bei Vasen deutlich reduziert.
+
+An Boden und Deckel ist der Vasenmodus ungeeignet, da die Überlappung aufeinanderfolgender Lagen bei hier zunehmend klein wird. Daher wird das Ei in drei Teile geteilt, die äußeren beiden drucken wir normal. Trotz dieser Aufteilung ist das verbliebene Vasenteil recht groß, ein Drucker mit mindestens 250mm Bauraumhöhe ist also Voraussetzung. Wir selbst nutzten einen Voron 2 in der 350mm-Version für das Vasenteil und die Kralle, und einen Prusa Mk 3 für die restlichen Teile. 
+
+![drucken 1](grafiken/kitchen_bilder/DSC07977.JPG "Druck der Deckel")
+![drucken 2](grafiken/kitchen_bilder/DSC07987.JPG "Druck der Kralle")
+
 
 # Holzskelett
 
@@ -63,9 +72,9 @@ In der Praxis überlebten die Eier dank dem Skelett auch die eine oder andere ra
 
 # Software
 
-Softwareseitig kam ein selbst geschriebenes Programm in C und C++ zum Einsatz. Dieses ist strukturiert in verschiedene "apps", welche jeweils unterschiedliche Animationen und Funktionen auf dem Ei ausführen. Eine übergeordnete Kontrollschleife schaltet zwischen den apps umher. 
+Softwareseitig kam ein selbst geschriebenes Programm in C++ zum Einsatz. Dieses ist strukturiert in verschiedene "apps", welche jeweils unterschiedliche Animationen und Funktionen auf dem Ei ausführen. Eine übergeordnete Kontrollschleife, welche auf Beschleunigungssensor reagiert, schaltet zwischen den apps umher und initialisiert/deinitialisiert diese. Außerdem implementiert die Kontrollschleife einen kleinen Zustandsautomat, um zwischen einem aktiven Modus und einem sleep/Stromsparmodus zu wechseln.
 
-Für das Ansprechen der LED-Streifen nutzten wir die FastLED-Bibliothek, für die Kommunikation mit dem Beschleunigungssensor die ADXL345-Bibliothek. 
+Für das Ansprechen der LED-Streifen nutzten wir die FastLED-Bibliothek, für die Kommunikation mit dem Beschleunigungssensor die ADXL345-Bibliothek. Visual Studio Code zusammen mit der Erweiterung PlatformIO stellte sich als praktische Entwicklungsplattform heraus.
 
 Insgesamt entwickelten wir fünf apps, wovon jedoch nicht mehr alle produktiv genutzt werden: 
 - Eine Fackelanimation, die bei lauten beats "Brennstoff ins Feuer schmeißt"
@@ -96,7 +105,11 @@ Das Ganze ist hier illustriert:
 
 # Fackel
 
-Die zweite Animation ahmt eine Fackel nach, wobei der Brennstoff entsprechend dem beat nachgeführt wird. Entsprechend der Musik wabern dann Feuerschwaden langsam nach oben. Kurzfristige Änderungen in der Musik - z.B. durch bass drops - führen temporär zu größeren Feuerschwaden, was besonder spektakulär aussieht.
+Die zweite Animation ahmt eine Fackel nach, wobei der Brennstoff entsprechend dem beat nachgeführt wird. Entsprechend der Musik wabern dann Feuerschwaden langsam nach oben. 
+
+![Fackel](grafiken/kitchen_bilder/DSC07983.JPG "Entwicklung der Fackelanimation")
+
+Kurzfristige Änderungen in der Musik - z.B. durch bass drops - führen temporär zu größeren Feuerschwaden, was besonder spektakulär aussieht.
 
 Wie bei der ersten Animation normieren wir zunächst das Mikrofonsignal auf einen Durchschnitt von Null und ermitteln daraus in chunks von 10 Millisekunden die Signalenergie. Die Signalenergie wird nun mit zwei unterschiedlichen Tiefpässen gefiltert. Ein Tiefpass hat eine kurze Zeitkonstante und dient nur zur Glättung des Signals. Der andere Tiefpass hat eine Zeitkonstante von mehreren Sekunden und gibt Auskunft über die durchschnittliche Lautstärke. 
 
@@ -107,22 +120,28 @@ Wenn der schnelle Tiefpass mindestens 15% über dem langsamen Tiefpass liegt, da
 
 # Anleitung
 
-0) Organisiere dir an deinem lokalen makerspace folgende Fertigungsmöglichkeiten: Ein 3D-Drucker mit mindestens 25cm Bauraumhöhe. Ein Lasercutter oder eine andere Möglichkeit, um 3mm dickes Sperrholz zuzuschneiden. Ein Lötkolben.
+0) Organisiere dir in deiner Werkstatt oder an deinem lokalen makerspace folgende Fertigungsmöglichkeiten: Ein 3D-Drucker mit mindestens 25cm Bauraumhöhe. Ein Lasercutter oder eine andere Möglichkeit, um 3mm dickes Sperrholz zuzuschneiden. Ein Lötkolben.
 1) Baue an deinem 3D-Drucker eine 0.8mm-Düse ein.
 2) Drucke Boden und Deckel mit normalen Druckeinstellungen mit hellem PLA, support ist nicht nötig. Drucke die Kralle in einer anderen Farbe. Support ist ebenfalls nicht nötig, aber falls sich das Druckbett schnell bewegt, kann ein brim helfen. 
 3) Drucke das mittlere Teil im Vasenmodus mit hellem PLA. Stelle die Anzahl der bottom layers auf Null. Auch hier kann ein brim helfen.
 4) Schneide die Holzteile in 3mm Dicke zurecht. Teste, ob sich die Holzteile ineinander stecken lassen.
-5) Presse die Muttern in die kleinen Ringe und klebe die kleinen Holzringe mit Muttern an die großen Holzringe. Beachte die Bilder, um die richtige Seite zu treffen. (TODO)
+5) Presse die Muttern in die kleinen Ringe und klebe die kleinen Holzringe mit Muttern an die großen Holzringe. Beachte die Bilder, um die richtige Seite zu treffen. 
 6) Senke mit einem Löteisen die Einsenkmuttern in das Bodenteil. 
 7) Montiere die Holzteile innerhalb der Vase zusammen und verklebe die Holz-Holz-Kontakte mit Holzleim. Vermeide dabei Express-Holzleim. 
 8) Stecke das LED-Band in einen Kanal, und kürze sie derart, dass es oben noch 10mm heraus schaut.  Ziehe es wieder heraus und schneide für die weiteren Kanäle LED-Streifen mit der selben Länge ab. 
-9) Löte 3-polige Steckverbinder an das obere Ende der LED-Streifen. Orientiere es dabei so, dass die aufgedruckten Pfeile später nach unten (TODO) zeigen.
+9) Löte 3-polige Steckverbinder an das obere Ende der LED-Streifen. Orientiere es dabei so, dass die aufgedruckten Pfeile später nach unten zeigen.
 10) Schraube den Boden am Mittelteil fest. 
 11) Ziehe die LED-Streifen in die Kanäle ein.
+
+![elektronik 2](grafiken/kitchen_bilder/DSC07982.JPG "Einschieben der LED-Streifen")
+
 12) Spiele die Software auf den ESP, z.B. mit Visual Studio Code und der Erweiterung PlatformIO.
 13) Verlöte Mikrofon, ESP, Beschleunigungssensor, Spannungsversorgung und die Anschlussleitungen für die LEDs gemäß der Darstellung (Todo).
 14) Montiere die gelöteten Teile auf dem gelochten Holzbrett, z.B. mit Hilfe von dünnen Kabelbindern und Heißkleber. 
 15) Lade den Akkupack, schließe und schalte ihn an.
+
+![elektronik 1](grafiken/kitchen_bilder/DSC07978.JPG "Montierte Elektronik")
+
 16) Schraube die Kralle an den Boden.
 17) Stecke das Holzbrett in die dafür vorgesehene Aussparung im Inneren des Bodens.
 18) Verbinde die Steckverbinder der LEDs.
@@ -161,15 +180,10 @@ Vor dem zweiten Abend stellten wir zur Sicherheit noch die Empfindlichkeit der M
 Bei der Gelegenheit verringerten wir außerdem die Helligkeit der Animationen.
 Weitere Änderungen waren während des Festivals nicht mehr nötig.
 
-Beim Auseinanderbauen stellten wir mit Freude fest, dass die Akkupacks nach einer langen Nacht nicht einmal
-die Hälfte ihrer Ladung verloren hatten. Grob geschätzt dürfte die Einsatzdauer bei Benutzung bei etwa einem Tag liegen, 
-etwa drei im deep sleep. 
+Wir waren erfreut zu sehen, dass die Akkus nach einer langen Nacht weniger als die Hälfte ihrer Ladung verbraucht hatten. Wir schätzen, dass die Batterielaufzeit bei kontinuierlicher Nutzung etwa einen Tag und etwa drei Tage im Deep-Sleep-Modus beträgt.
 
-Entsprechend war nun der Zeitpunkt gekommen, wo wir gedanklich vom Tüfelmodus vollständig auf den Festivalmodus umschwenken konnten.
-Hier eine Impression von der Tanzfläche, um das Werk in einen Kontext zu setzen:
+Da alles so gut funktionierte, war nun der Zeitpunkt gekommen, um gedanklich vom Tüftelmodus vollständig in den Festivalmodus zu wechseln. 
 
-![fusion 6](grafiken/fusion_bilder/6.jpg "Impressionen von der Tanzfläche")
+Wir freuen uns schon auf nächstes Jahr, wenn wir einen Teleskopstab und eine Ladelösung haben werden, die kein Aufschrauben mehr erfordert. Außerdem denken wir bereits über weitere Animationen nach.
 
-Wir freuen uns schon auf nächstes Jahr, dann mit Teleskopstab, sowie einer Ladelösung, die kein Aufschrauben mehr nötig macht.
 
-Wenn ihr Lust bekommen habt, dann meldet euch bei uns! Wir sind vor allem interessiert an neuen Animationen, die wir auf das Ei laden können.
