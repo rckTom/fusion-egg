@@ -60,11 +60,83 @@ static int quarter_color_v = 50;
 //modus 0: farbverlauf, farben wechseln alle 4 beats
 //modus 1: konstante farbe, wechselt bei jedem beat
 static int modus = 0;  
+static int modus_count = 0;
 
 
 
 static int get_value(int pos, int quarter, int beat_count, char component)
 {
+
+
+    if (modus == 2)
+    {
+        if (component == 'h'){return 255;}
+        if (component == 's'){return 0;}
+        if (component == 'v')
+        {
+            int v = 50;
+            int s1=0, s2=0, s3=0, s4=0;
+            switch (beat_count)
+            {
+                case 0:
+                    s1 = 0, s2 = 0, s3 = 0, s4 = 0;
+                    break;
+                case 1:
+                    s1 = 0, s2 = 0, s3 = 0, s4 = 1;
+                    break;
+                case 2:
+                    s1 = 0, s2 = 0, s3 = 1, s4 = 0;
+                    break;
+                case 3:
+                    s1 = 0, s2 = 0, s3 = 1, s4 = 1;
+                    break;
+                case 4:
+                    s1 = 0, s2 = 1, s3 = 0, s4 = 0;
+                    break;
+                case 5:
+                    s1 = 0, s2 = 1, s3 = 0, s4 = 1;    
+                    break;     
+                case 6:
+                    s1 = 0, s2 = 1, s3 = 1, s4 = 0;
+                    break;
+                case 7:
+                    s1 = 0, s2 = 1, s3 = 1, s4 = 1;
+                    break;
+                case 8:
+                    s1 = 1, s2 = 0, s3 = 0, s4 = 0;
+                    break;
+                case 9:
+                    s1 = 1, s2 = 0, s3 = 0, s4 = 1;
+                    break;
+                case 10:
+                    s1 = 1, s2 = 0, s3 = 1, s4 = 0;
+                    break;
+                case 11:
+                    s1 = 1, s2 = 0, s3 = 1, s4 = 1;
+                    break;
+                case 12:
+                    s1 = 1, s2 = 1, s3 = 0, s4 = 0;
+                    break;
+                case 13:
+                    s1 = 1, s2 = 1, s3 = 0, s4 = 1;
+                    break;
+                case 14:
+                    s1 = 1, s2 = 1, s3 = 1, s4 = 0;
+                    break;
+                case 15:
+                    s1 = 1, s2 = 1, s3 = 1, s4 = 1;  
+                    break;                    
+            }
+
+            if (pos < NUM_LEDS/4) {return s1*v;}
+            else if (pos < NUM_LEDS/2) {return s2*v;}
+            else if (pos < 3*NUM_LEDS/4) {return s3*v;}
+            else {return s4*v;}
+
+        }
+
+
+    }
 
 
 
@@ -81,7 +153,6 @@ static int get_value(int pos, int quarter, int beat_count, char component)
 
                 return color%255;
             }
-
             return quarter_color_h1;
 
         }
@@ -232,38 +303,37 @@ void QuarterApp::loop()
             if (beat_count > 15)
             {
                 beat_count = 0;
-            }
+                modus_count ++;
 
-            if (beat_count == 0)
-            {
-                modus ++;
-                if (modus > 2)
+                if (modus_count > 3)
                 {
-                    modus = 0;
+                    modus_count = 0;
+                    modus++;
+                    if (modus > 2)
+                    {
+                        modus = 0;
+                    }
                 }
+
+
+
             }
 
-        }
-        
+            for (int i = 0; i < NUM_LEDS; i++)
+            {
 
+                int h = get_value(i, quarter, beat_count, 'h');
+                int s = get_value(i, quarter, beat_count, 's');
+                int v = get_value(i, quarter, beat_count, 'v');
+
+                leds[i].setHSV(h, s, v);
+
+            }
+            FastLED.show();
+        }
         
         angle_pre = angle;
-        
-
-
         energy = 0;
-
-        for (int i = 0; i < NUM_LEDS; i++)
-        {
-
-            int h = get_value(i, quarter, beat_count, 'h');
-            int s = get_value(i, quarter, beat_count, 's');
-            int v = get_value(i, quarter, beat_count, 'v');
-
-            leds[i].setHSV(h, s, v);
-
-        }
-        FastLED.show();
     }
 
     if (micros() - last_us_control > sampling_period_control)
