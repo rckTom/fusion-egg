@@ -13,6 +13,13 @@ struct BeatDetectApp : public App {
 };
 
 
+struct QuarterApp : public App {
+    void init();
+    void deinit();
+    void loop();
+};
+
+
 struct VuMeterApp: public App {
     void init();
     void deinit();
@@ -31,8 +38,10 @@ struct FackelApp: public App {
     void loop();
 };
 
-struct ImageDisplayApp: public App {
+/**
+ * struct ImageDisplayApp: public App {
     void init();
     void deinit();
     void loop();
 };
+**/

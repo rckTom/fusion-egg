@@ -45,7 +45,7 @@ Der zweite Trick ist eine kreative Verwendung des Vasenmodus. Auf den ersten Bli
 
     [Erklärbox] Beim 3D-Druck gibt es eine spezielle Druckmethode namens "Vase Mode", die es ermöglicht, hohle Objekte zu drucken. Der Vasenmodus funktioniert so, dass der Drucker nur die äußere Kontur des zu druckenden Objekts aufbaut. Dabei bewegt sich der Druckkopf in einer Spirale nach oben. Dadurch entsteht eine hohle Form, die oft einem Gefäß oder einer Vase ähnelt. Der Vorteil dieser Methode ist, dass sie sehr schnell ist, da nur die äußere Schicht des Objekts gedruckt werden muss. Außerdem spart es Material, da das Innere des Objekts leer bleibt. Das macht den Vasenmodus ideal für den Druck von dekorativen Objekten wie Vasen oder Lampenschirmen. Es gibt jedoch auch Nachteile: Da das Objekt hohl ist, kann es schwierig sein, es stabil genug zu drucken, besonders wenn es groß ist. Außerdem ist das Objekt nur von einer Seite zugänglich, was die Reinigung und Nachbearbeitung erschweren kann.
 
-Wir nutzen hier die Definition einer Vase aus. Der Slicer fährt auf jeder Lage sturr die äußere Kontur ab. "Außere Kontur" ist hier rein mathematisch definiert. Indem wir einen Volumenkörper von außen dünn einschlitzen, können wir also auch im Innenraum des Eis einen Tunnel für die LED-stripes erzeugen. Das ist in den Abbildungen (vase mode 1) und (vase mode 2) illustriert. 
+Wir nutzen hier die Definition einer Vase aus. Der Slicer fährt auf jeder Lage stur die äußere Kontur ab. "Außere Kontur" ist hier rein mathematisch definiert. Indem wir einen Volumenkörper von außen dünn einschlitzen, können wir also auch im Innenraum des Eis einen Tunnel für die LED-stripes erzeugen. Das ist in den Abbildungen (vase mode 1) und (vase mode 2) illustriert. 
 
 ![vase mode 1](grafiken/illustrationen/vase_cad.PNG "Geometrie wie sie im CAD definiert ist")
 
@@ -136,7 +136,10 @@ Wenn der schnelle Tiefpass mindestens 15% über dem langsamen Tiefpass liegt, da
 ![elektronik 2](grafiken/kitchen_bilder/DSC07982.JPG "Einschieben der LED-Streifen")
 
 12) Spiele die Software auf den ESP, z.B. mit Visual Studio Code und der Erweiterung PlatformIO.
-13) Verlöte Mikrofon, ESP, Beschleunigungssensor, Spannungsversorgung und die Anschlussleitungen für die LEDs gemäß der Darstellung (Todo).
+13) Verlöte Mikrofon, ESP, Beschleunigungssensor, Spannungsversorgung und die Anschlussleitungen für die LEDs gemäß der Darstellung.
+
+![elektronik 3](fritzing/fritzing_bb.png "Fritzing")
+
 14) Montiere die gelöteten Teile auf dem gelochten Holzbrett, z.B. mit Hilfe von dünnen Kabelbindern und Heißkleber. 
 15) Lade den Akkupack, schließe und schalte ihn an.
 
