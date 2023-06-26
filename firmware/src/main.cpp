@@ -6,6 +6,7 @@
 struct BeatDetectApp beat_detect_app
 {
 };
+
 struct QuarterApp quarter_app
 {
 };

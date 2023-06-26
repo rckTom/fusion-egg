@@ -6,7 +6,7 @@
 #include "zauberstab.h"
 
 #undef NUM_LEDS
-#define NUM_LEDS 48
+#define NUM_LEDS 46
 
 #define SAMPLING_FREQUENCY_BP 40 // number of energy chunks per second
 #define SAMPLING_FREQUENCY_CONTROL \
@@ -37,12 +37,6 @@ static float y_fil[n_BP];
 
 static float angle;
 static float angle_pre = 0.1;
-//static float angle2;
-
-// static double energy_fil = 800.;
-
-//static float pos_target = NUM_LEDS / 2;
-//static float pos_target_filtered = NUM_LEDS / 2;
 static long initial_time;
 
 static int active = 15;
@@ -59,6 +53,7 @@ static int quarter_color_v = 50;
 
 //modus 0: farbverlauf, farben wechseln alle 4 beats
 //modus 1: konstante farbe, wechselt bei jedem beat
+//modus 2: weiß, zählt binärzahlen hoch
 static int modus = 0;  
 static int modus_count = 0;
 
@@ -68,7 +63,21 @@ static int get_value(int pos, int quarter, int beat_count, char component)
 {
 
 
-    if (modus == 2)
+    if (modus == 3)
+    {
+        if (component == 'h'){return 255;}
+        if (component == 's'){return 0;}
+        if (component == 'v')
+        {
+           if ((quarter+pos)%2==0)
+           {return 50;}
+           else
+           {return 0;}
+        }
+    }
+
+
+    else if (modus == 2)
     {
         if (component == 'h'){return 255;}
         if (component == 's'){return 0;}
@@ -132,25 +141,18 @@ static int get_value(int pos, int quarter, int beat_count, char component)
             else if (pos < NUM_LEDS/2) {return s2*v;}
             else if (pos < 3*NUM_LEDS/4) {return s3*v;}
             else {return s4*v;}
-
         }
-
-
     }
 
 
-
-
-    if (pos < NUM_LEDS*quarter/3)
+    else if (pos < NUM_LEDS*quarter/3)
     {
         if (component == 'h')
         {
             if (modus == 0)
             {
                 
-
                 int color = quarter_color_h1 + 50*pos/NUM_LEDS;
-
                 return color%255;
             }
             return quarter_color_h1;
@@ -263,39 +265,34 @@ void QuarterApp::loop()
         //every beat
         if (angle > 0 and angle_pre <= 0)
         {
+            quarter = beat_count%4;
+
+
+            //mode 0 logic if active
+            if (modus == 0 & quarter == 0)
+            {
+                quarter_color_h1 += 10;
+                quarter_color_h1 = quarter_color_h1%255;
+            }
 
             //mode 1 logic if active
-            if (modus == 1)
+            else if (modus == 1)
             {
                 quarter_color_h1 += 15;
                 quarter_color_h1 = quarter_color_h1%255;
                 quarter_color_s = 255;
             }
 
-            quarter = beat_count%4;
+
 
             //every 4 beats
-            if (quarter == 0)
+            else if (quarter == 0 & modus == 2)
             {
-
-                //mode 2 logic if active
-                if (modus == 2)
-                {
-                    quarter_color_s = 0;
-                }
-                else
-                {
-                    quarter_color_s = 255;
-                }
-
-
-                //mode 0 logic if active
-                if (modus == 0)
-                {
-                    quarter_color_h1 += 10;
-                    quarter_color_h1 = quarter_color_h1%255;
-                }
-
+                quarter_color_s = 0;
+            }
+            else
+            {
+                quarter_color_s = 255;
             }
 
             // state machine
@@ -303,13 +300,13 @@ void QuarterApp::loop()
             if (beat_count > 15)
             {
                 beat_count = 0;
-                modus_count ++;
+                modus_count++;
 
-                if (modus_count > 3)
+                if (modus_count > 7)
                 {
                     modus_count = 0;
                     modus++;
-                    if (modus > 2)
+                    if (modus > 3)
                     {
                         modus = 0;
                     }
@@ -319,18 +316,20 @@ void QuarterApp::loop()
 
             }
 
-            for (int i = 0; i < NUM_LEDS; i++)
-            {
 
-                int h = get_value(i, quarter, beat_count, 'h');
-                int s = get_value(i, quarter, beat_count, 's');
-                int v = get_value(i, quarter, beat_count, 'v');
-
-                leds[i].setHSV(h, s, v);
-
-            }
-            FastLED.show();
         }
+
+        for (int i = 0; i < NUM_LEDS; i++)
+        {
+
+            int h = get_value(i, quarter, beat_count, 'h');
+            int s = get_value(i, quarter, beat_count, 's');
+            int v = get_value(i, quarter, beat_count, 'v');
+
+            leds[i].setHSV(h, s, v);
+
+        }
+        FastLED.show();
         
         angle_pre = angle;
         energy = 0;
