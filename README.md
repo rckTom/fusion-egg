@@ -54,7 +54,7 @@ Connect all electronics as showed here:
 <img src="media/fritzing/fritzing_bb.png" width=100% height=100%>
 
 ### Software
-Build and flash the sofware inside the firmware folder with PlatformIO. If you need to change the pin assignment for the leds or the microphone, you can find the definitions inside firmware/include/zauberstab.h
+Build the sofware inside the firmware folder with PlatformIO. If you need to change the pin assignment for the leds or the microphone, you can find the definitions inside firmware/include/zauberstab.h. Don't forget to flash your eggs.
 
 ## License
 All software is licensed under GPLv2. Hardware is licensed under CC BY-NC-SA. Contact us for commercial use.
