@@ -1,3 +1,9 @@
+/* 
+ * Copyright 2023 Alexander Alber and Thomas Schmid
+ * 
+ * SPDX-License-Identifier: GPL-2.0
+ */
+
 #include "zauberstab.h"
 #include "dc_cancelation.h"
 

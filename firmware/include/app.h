@@ -1,3 +1,9 @@
+/* 
+ * Copyright 2023 Alexander Alber and Thomas Schmid
+ * 
+ * SPDX-License-Identifier: GPL-2.0
+ */
+
 #pragma once
 
 struct App {

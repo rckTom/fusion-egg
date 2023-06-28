@@ -1,3 +1,9 @@
+/* 
+ * Copyright 2023 Alexander Alber and Thomas Schmid
+ * 
+ * SPDX-License-Identifier: GPL-2.0
+ */
+
 #include "app.h"
 #include "driver/adc.h"
 #include "zauberstab.h"
