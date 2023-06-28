@@ -18,10 +18,9 @@ struct FackelApp fackel_app
 
 
 std::vector<std::reference_wrapper<App>> apps = {
-    std::ref<App>(quarter_app),
     std::ref<App>(beat_detect_app),
     std::ref<App>(fackel_app),
-    //std::ref<App>(image_display),
+    std::ref<App>(quarter_app),
     };
 
 static unsigned int current_app = 0;
