@@ -7,7 +7,9 @@
 
 #define ADXL345_I2CADDR 0x53  // 0x1D if SDO = HIGH
 
-#define LED_PIN 12
+#define LED_PIN1 12
+#define LED_PIN2 14
+#define LED_PIN3 27
 #define NUM_LEDS 48
 #define MIC_PIN 15
 
